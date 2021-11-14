@@ -1,0 +1,19 @@
+{
+    "data": [
+        {
+            "id": "GR1",
+            "name": "Green tea",
+            "prise": 3.11
+        },
+        {
+            "id": "SR1",
+            "name": "Strawberries",
+            "prise": 5
+        },
+        {
+            "id": "CF1",
+            "name": "Coffee",
+            "prise": 11.23
+        }
+    ]
+}
