@@ -3,17 +3,20 @@
         {
             "id": "GR1",
             "name": "Green tea",
-            "prise": 3.11
+            "price": 3.11,
+            "image": "green_tea.jpeg"
         },
         {
             "id": "SR1",
             "name": "Strawberries",
-            "prise": 5
+            "price": 5,
+            "image": "strawberry.jpeg"
         },
         {
             "id": "CF1",
             "name": "Coffee",
-            "prise": 11.23
+            "price": 11.23,
+            "image": "coffee.jpeg"
         }
     ]
 }

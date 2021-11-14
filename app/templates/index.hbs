@@ -1,6 +1,7 @@
-<ul>
+<h1 class="page__title">All Products</h1>
+<ul class="product-list">
     {{#each @model as |product|}}
-       <li>
+       <li class="product-list__item">
            <Product @product={{product}} />
        </li> 
     {{/each}}

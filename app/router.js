@@ -7,5 +7,6 @@ export default class Router extends EmberRouter {
 }
 
 Router.map(function () {
-  this.route('card');
+  this.route('cart');
+  this.route('index');
 });

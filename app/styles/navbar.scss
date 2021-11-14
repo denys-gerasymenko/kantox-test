@@ -2,4 +2,23 @@
     padding: 15px;
     display: flex;
     justify-content: space-between;
+
+    &__menu {
+        display: flex;
+        align-items: center;
+    }
+}
+
+.cart {
+    display: flex;
+    
+    &__counter {
+        min-height: 40px;
+        padding: 5px 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: red;
+        border-radius: 25px;
+    }
 }

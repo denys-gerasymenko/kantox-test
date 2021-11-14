@@ -1,1 +1,14 @@
-product {{@product.name}}
+<div class="product">
+    <div class="product__image-block">
+        <img src={{this.image}} alt="product image" class="product__image">
+    </div>
+    <div class="product__description">
+        <div class="product__name">
+            {{@product.name}}
+        </div>
+        <div class="product__price">
+            £{{@product.price}}
+            <Button>Buy</Button>
+        </div>
+    </div>
+</div>
