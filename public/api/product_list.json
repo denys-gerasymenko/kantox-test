@@ -4,19 +4,22 @@
             "id": "GR1",
             "name": "Green tea",
             "price": 3.11,
-            "image": "green_tea.jpeg"
+            "image": "assets/images/green_tea.jpeg",
+            "quantity": 0
         },
         {
             "id": "SR1",
             "name": "Strawberries",
             "price": 5,
-            "image": "strawberry.jpeg"
+            "image": "assets/images/strawberry.jpeg",
+            "quantity": 0
         },
         {
             "id": "CF1",
             "name": "Coffee",
             "price": 11.23,
-            "image": "coffee.jpeg"
+            "image": "assets/images/coffee.jpeg",
+            "quantity": 0
         }
     ]
 }

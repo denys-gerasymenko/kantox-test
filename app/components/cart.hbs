@@ -1,1 +1,29 @@
-{{yield}}
+<h1 class="page__title">Shopping Cart</h1>
+<ul class="cart">
+    {{#each this.shoppingCartMock.items as |product|}}
+        <li class="cart-item">
+            <img class="cart-item__image" src={{product.image}} alt="">
+            <div class="cart-item__info">
+                <div class="cart-item__name-block">
+                    <div>
+                        {{product.name}}
+                    </div>
+                    <button 
+                        class="cart-item__remove-button" type="button" {{on "click" (fn this.removeFromCart product.id)}}
+                    >
+                        x
+                    </button>
+                </div>
+                <div class="cart-item__price-block">
+                    <div class="cart-item__price">
+                        {{product.price}}
+                    </div>
+                    <div class="cart-item__quantity-price">
+                        {{product.quantity}}
+                    </div>
+                </div>
+            </div>
+        </li>
+    {{/each}}
+</ul>
+<div>Total: 228</div>
