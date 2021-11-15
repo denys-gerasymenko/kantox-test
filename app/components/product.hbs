@@ -8,7 +8,7 @@
         </div>
         <div class="product__price">
             £{{@product.price}}
-            <Button>Buy</Button>
+            <Button {{on "click" this.addToCart}}>Buy</Button>
         </div>
     </div>
 </div>
