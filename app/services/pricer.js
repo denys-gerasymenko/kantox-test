@@ -28,6 +28,12 @@ export default class PricerService extends Service {
         CF1: 0,
     };
 
+    setDiscounts(products) {
+        return products.map(p => {
+            return this.getProductWithDiscount(p);
+        })
+    }
+
     getProductWithDiscount(product) {
         const productRules = rules[product.id];
 

@@ -5,13 +5,13 @@ import { tracked } from '@glimmer/tracking';
 export default class CartComponent extends Component {
     @service shoppingCart;
     @service('pricer') pricerService;
-    @tracked product;
+    // @tracked product;
 
-    constructor(...args) {
-        super(...args);
+    // constructor(...args) {
+    //     super(...args);
 
-        this.products = this.pricerService.getProductWithDiscount(this.args.product);
-    }
+    //     this.products = this.pricerService.getProductWithDiscount(this.args.product);
+    // }
 
     removeFromCart = (productId) => {
         if (!productId) {

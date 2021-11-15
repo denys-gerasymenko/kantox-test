@@ -5,11 +5,11 @@ import { tracked } from '@glimmer/tracking';
 export default class ProductComponent extends Component {
   @service shoppingCart;
   @service('pricer') pricerService;
-  @tracked product;
+  @tracked product = this.args.product;
 
   constructor(...args) {
     super(...args);
-    this.product = this.pricerService.getProductWithDiscount(this.args.product);
+    console.log(this.product);
   }
 
   addToCart = () => {
