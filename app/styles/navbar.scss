@@ -6,19 +6,45 @@
     &__menu {
         display: flex;
         align-items: center;
+
+        &-list {
+            margin-right: 24px;
+
+            a {
+                color: blue;
+                font-weight: 400;
+
+                &:hover {
+                    color: red;
+                }
+            }
+        }
+    }
+
+    &__logo {
+        max-width: 100px;
     }
 }
 
-.cart {
+.cart-link {
     display: flex;
-    
+
     &__counter {
-        min-height: 40px;
-        padding: 5px 20px;
+        min-height: 20px;
+        padding: 5px 15px;
         display: flex;
         justify-content: center;
         align-items: center;
         background: red;
         border-radius: 25px;
+        color: white;
+        margin-left: 5px;
+        font-weight: 600;
+    }
+
+    &:hover {
+        path {
+            fill: red;
+        }
     }
 }
