@@ -4,7 +4,8 @@ import { tracked } from '@glimmer/tracking';
 
 export default class CartComponent extends Component {
   @service shoppingCart;
-  @tracked products = this.shoppingCartMock.items;
+  @tracked products = this.args.products;
+  // @tracked products = this.shoppingCartMock.items;
 
   removeFromCart = (productId) => {
     if (!productId) {
