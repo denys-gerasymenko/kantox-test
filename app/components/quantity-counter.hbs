@@ -1,5 +1,5 @@
-<div>
-    <button type="button" {{on 'click' (fn @changeQuantity -1)}}>-</button>
-    <Input @value={{@quantity}} />
-    <button type="button" {{on 'click' (fn @changeQuantity 1)}}>+</button>
+<div class="quantity-counter">
+    <button class="quantity-counter__button" type="button" {{on 'click' (fn @changeQuantity -1)}}>-</button>
+    <Input @value={{@quantity}} class="quantity-counter__input" />
+    <button class="quantity-counter__button" type="button" {{on 'click' (fn @changeQuantity 1)}}>+</button>
 </div>

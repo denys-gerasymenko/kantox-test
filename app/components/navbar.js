@@ -1,3 +1,7 @@
 import Component from '@glimmer/component';
+import { inject as service } from '@ember/service';
+import { tracked } from '@glimmer/tracking';
 
-export default class NavbarComponent extends Component {}
+export default class NavbarComponent extends Component {
+    @service shoppingCart;
+}

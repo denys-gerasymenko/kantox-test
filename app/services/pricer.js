@@ -66,7 +66,7 @@ export default class PricerService extends Service {
   }
 
   getCoffeeDiscount({ price }) {
-    return { price: price - (price / 100) * 66 };
+    return { price: price / 100 * 66 };
   }
 
   changeBuyingCounter(product, count) {

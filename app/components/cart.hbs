@@ -16,14 +16,14 @@
                 </div>
                 <div class="cart-item__price-block">
                     <div class="cart-item__price">
-                        {{product.price}}
+                        £{{product.price}}
                     </div>
                     <div class="cart-item__quantity-price">
-                        {{product.quantity}}
+                        quantity: {{product.quantity}}
                     </div>
                 </div>
             </div>
         </li>
     {{/each}}
 </ul>
-<div>Total: 228</div>
+<div>Total Price £{{this.totalPrice}}</div>
