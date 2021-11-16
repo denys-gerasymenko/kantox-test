@@ -7,7 +7,6 @@ export default class IndexRoute extends Route {
   async model() {
     const response = await fetch('/api/product_list.json');
     const { data } = await response.json();
-    //TODO: check for discount is setted
     const products = this.pricerService.setDiscounts(data);
     return products;
   }

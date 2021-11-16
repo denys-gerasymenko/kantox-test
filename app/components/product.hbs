@@ -8,6 +8,7 @@
         </div>
         <div class="product__price">
             £{{this.product.price}}
+            <QuantityCounter @quantity={{this.quantity}} @changeQuantity={{this.changeQuantity}} />
             <Button {{on "click" this.addToCart}}>Buy</Button>
         </div>
     </div>
