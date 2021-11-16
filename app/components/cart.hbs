@@ -1,6 +1,6 @@
 <h1 class="page__title">Shopping Cart</h1>
 <ul class="cart">
-    {{#each this.shoppingCart.items as |product|}}
+    {{#each @products as |product|}}
         <li class="cart-item">
             <img class="cart-item__image" src={{product.image}} alt="">
             <div class="cart-item__info">

@@ -1,69 +1,83 @@
 import Service from '@ember/service';
 
-const rules = Object.freeze({
-    GR1: {
-        quantityForDiscount: 1,
-        discount: {
-            quantity: 2,
-        }
-    },
-    SR1: {
-        quantityForDiscount: 3,
-        discount: {
-            priceInteger: 0.5,
-        }
-    },
-    CF1: {
-        quantityForDiscount: 3,
-        discount: {
-            pricePercent: 66
-        }
-    },
-});
-
 export default class PricerService extends Service {
-    buyingCounter = {
-        GR1: 0,
-        SR1: 0,
-        CF1: 0,
-    };
+    productDiscounts = {
+        GR1: {
+            quantityForDiscount: 1,
+            discountFunction: this.getTeaDiscount,
+            counter: 0,
+            discount: null,
+        },
+        SR1: {
+            quantityForDiscount: 3,
+            discountFunction: this.getStrawberryDiscount,
+            counter: 0,
+            discount: null,
+        },
+        CF1: {
+            quantityForDiscount: 3,
+            discountFunction: this.getCoffeeDiscount,
+            counter: 0,
+            discount: null,
+        }, 
+    }
+
+    useDiscount(productSettings, product) {
+        let discount;
+        if (typeof productSettings.discount === 'function') {
+            discount = productSettings.discount(product);
+        } else {
+            discount = productSettings.discount;
+        }
+           
+        return {
+            ...product,
+            ...discount
+        }    
+    }
+
+    getProductWithDiscount(product) {
+        const productSettings = this.productDiscounts[product.id];
+
+        if (productSettings.discount) {
+            return this.useDiscount(productSettings, product);   
+        }
+
+        this.incrementBuyingCounter(product);
+
+        if (
+            productSettings.counter === productSettings.quantityForDiscount
+        ) {
+            productSettings.discount = productSettings.discountFunction(product);
+            return this.useDiscount(productSettings, product);
+        }
+
+        return product;
+    }
+
+    getTeaDiscount() {
+        return ({quantity}) => {
+            return {quantity: quantity * 2}
+        };
+    }
+
+    getStrawberryDiscount({price}) {
+        return {price: price - 0.5};
+    }
+
+    getCoffeeDiscount({price}) {
+        return {price: price - (price / 100 * 66)};
+    }
+
+    incrementBuyingCounter(product) {
+        if (this.productDiscounts[product.id].counter !== undefined) {
+            this.productDiscounts[product.id].counter += 1;
+        }
+    }
 
     setDiscounts(products) {
         return products.map(p => {
             return this.getProductWithDiscount(p);
         })
-    }
-
-    getProductWithDiscount(product) {
-        const productRules = rules[product.id];
-
-        if (productRules.quantityForDiscount <= this.buyingCounter[product.id]) {
-            const productWithDiscount = {};
-
-            if (productRules.discount.quantity) {
-                productWithDiscount.quantity = productRules.discount.quantity + parseInt(product.quantity);
-            } else if (productRules.discount.priceInteger) {
-                productWithDiscount.price = (
-                    productRules.discount.priceInteger + parseFloat(product.price)
-                );
-            } else if (productRules.discount.pricePercent) {
-                productWithDiscount.price = (
-                    product.price - (product.price / 100 * productRules.discount.pricePercent)
-                ).toFixed(2);
-            }
-
-            return product = {
-                ...product,
-                ...productWithDiscount
-            };
-        } else {
-            return product;
-        }
-    }
-
-    incrementBuyingCounter(product) {
-        if (this.buyingCounter[product.id] !== undefined) {
-            this.buyingCounter[product.id] += 1;
-        }
     }
 }

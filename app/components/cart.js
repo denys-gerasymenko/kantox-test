@@ -3,27 +3,18 @@ import { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 
 export default class CartComponent extends Component {
-    @service shoppingCart;
-    @service('pricer') pricerService;
-    // @tracked product;
-
-    // constructor(...args) {
-    //     super(...args);
-
-    //     this.products = this.pricerService.getProductWithDiscount(this.args.product);
-    // }
 
     removeFromCart = (productId) => {
         if (!productId) {
-        return;
+            return;
         }
 
         const productFromCart = this.shoppingCart.items.find(
-        (p) => p.id === productId
+            (p) => p.id === productId
         );
 
         if (productFromCart) {
-        this.shoppingCart.remove(productFromCart);
+            this.shoppingCart.remove(productFromCart);
         }
     };
 
