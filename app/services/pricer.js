@@ -30,7 +30,9 @@ export default class PricerService extends Service {
       discount = productSettings.discount;
     }
 
-    product.originalPrice = product.price;
+    if (!product.originalPrice) {
+      product.originalPrice = product.price;
+    }
 
     return {
       ...product,
@@ -48,7 +50,7 @@ export default class PricerService extends Service {
     if (productSettings.counter === productSettings.quantityForDiscount) {
       productSettings.discount = productSettings.discountFunction(product);
       return this.useDiscount(productSettings, product);
-    } else if (product.originalPrice) {
+    } else if (product.originalPrice && productSettings.counter < productSettings.quantityForDiscount) {
       product.price = product.originalPrice;
     }
 
@@ -75,7 +77,7 @@ export default class PricerService extends Service {
       productSettings.counter = count;
 
       if (productSettings.counter < productSettings.quantityForDiscount) {
-        productSettings.discount = null;
+        this.removeDiscount(product);
       }
     }
   }
@@ -84,5 +86,9 @@ export default class PricerService extends Service {
     return products.map((p) => {
       return this.getProductWithDiscount(p);
     });
+  }
+
+  removeDiscount(product) {
+    this.productDiscounts[product.id].discount = null;
   }
 }
