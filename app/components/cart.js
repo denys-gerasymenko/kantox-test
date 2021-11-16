@@ -3,6 +3,9 @@ import { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 
 export default class CartComponent extends Component {
+  @service shoppingCart;
+  @tracked products = this.args.products;
+
   removeFromCart = (productId) => {
     if (!productId) {
       return;
@@ -14,6 +17,7 @@ export default class CartComponent extends Component {
 
     if (productFromCart) {
       this.shoppingCart.remove(productFromCart);
+      this.products = this.shoppingCart.items;
     }
   };
 
