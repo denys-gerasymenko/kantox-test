@@ -4,6 +4,7 @@ import { tracked } from '@glimmer/tracking';
 
 export default class CartComponent extends Component {
   @service shoppingCart;
+  @service pricer;
   @tracked totalPrice;
 
   constructor(...args) {
@@ -13,14 +14,24 @@ export default class CartComponent extends Component {
   }
 
   changeTotalPrice = (value) => {
-    this.totalPrice += value;
+    console.log("value", value);
+    let result = (this.totalPrice + value).toFixed(2);
+
+    if (result < 0) {
+      result = 0;
+    }
+
+    this.totalPrice = parseInt(result);
   }
 
   getTotalPrice() {
     return this.shoppingCart.items.reduce(
-      (sum, product) => sum + product.price * product.quantity,
-      0
-    );
+      (sum, product) => {
+        const productPriceWithDiscount = this.pricer.getProductDiscount(product);
+
+        const productPrice = productPriceWithDiscount ? productPriceWithDiscount.price : product.price;
+        return sum + productPrice * product.quantity;
+      }, 0);
   }
 
   get shoppingCartMock() {

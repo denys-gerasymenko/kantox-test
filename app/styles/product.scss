@@ -24,8 +24,36 @@
         justify-content: space-between;
     }
 
-    &__price {
+    &__bottom-section {
         display: flex;
         justify-content: space-between;
+        align-items: flex-end;
+    }
+
+    &__price {
+        display: flex;
+        flex-direction: column;
     }
 }
+
+.price--with-discount {
+    .price-origin {
+        color: grey;
+        opacity: 0.8;
+        position: relative;
+        &::after {
+            position: absolute;
+            height: 2px;
+            width: 100%;
+            display: block;
+            content: "";
+            top: 50%;
+            left: 0;
+            background: red;
+        }
+    }
+
+    .price-discount {
+        color: red;
+    }
+ }

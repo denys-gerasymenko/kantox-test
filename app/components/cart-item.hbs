@@ -12,11 +12,15 @@
             </button>
         </div>
         <div class="cart-item__price-block">
-            <div class="cart-item__price">
-                {{#if productWithDiscount}}
-                    {{this.productWithDiscount.price}}
+            <div class="cart-item__price {{if this.productWithDiscount.price 'price--with-discount'}}">
+                {{#if productWithDiscount.price}}
+                    <div class="price-discount">
+                        £{{this.productWithDiscount.price}}
+                    </div>
                 {{/if}}
-                £{{this.product.price}}
+                <div class="price-origin">
+                    £{{this.product.price}}
+                </div>
             </div>
             <div class="cart-item__quantity-price">
                 {{#if productWithDiscount}}

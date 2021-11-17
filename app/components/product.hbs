@@ -6,11 +6,15 @@
         <div class="product__name">
             {{this.product.name}}
         </div>
-        <div class="product__price">
-            {{#if this.productWithDiscount}}
-                {{this.productWithDiscount.price}}
-            {{/if}}
-            £{{this.product.price}}
+        <div class="product__bottom-section">
+            <div class="product__price {{if this.productWithDiscount.price 'price--with-discount'}}">
+                {{#if this.productWithDiscount.price}}
+                    <div class="price-discount">£{{this.productWithDiscount.price}}</div>
+                {{/if}}
+                <div class="price-origin">
+                    £{{this.product.price}}
+                </div>
+            </div>
             <QuantityCounter @quantity={{this.quantity}} @changeQuantity={{this.changeQuantity}} />
             <Button {{on "click" this.addToCart}}>Buy</Button>
         </div>

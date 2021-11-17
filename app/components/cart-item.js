@@ -28,8 +28,12 @@ export default class CartItemComponent extends Component {
     
         if (productFromCart) {
           this.shoppingCart.remove(productFromCart);
+
+          const productPriceWithDiscount = this.pricer.getProductDiscount(productFromCart);
+          const productPrice = productPriceWithDiscount ? productPriceWithDiscount.price : productFromCart.price;
+
+          this.args.changeTotalPrice(-productPrice * productFromCart.quantity);
           this.pricer.setDiscount(productFromCart, false);
-          this.args.changeTotalPrice(-productFromCart.price * productFromCart.quantity);
         }
     };
 
