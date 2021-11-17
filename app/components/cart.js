@@ -6,7 +6,6 @@ export default class CartComponent extends Component {
   @service shoppingCart;
   @service pricer;
   @tracked products = this.args.products;
-  // @tracked products = this.shoppingCartMock.items;
 
   removeFromCart = (productId) => {
     if (!productId) {
@@ -25,7 +24,7 @@ export default class CartComponent extends Component {
   };
 
   get totalPrice() {
-    return this.products.reduce((sum, product) => sum + product.price, 0);
+    return this.products.reduce((sum, product) => sum + product.price * product.quantity, 0);
   }
 
   get shoppingCartMock() {
