@@ -29,7 +29,7 @@ export default class CartComponent extends Component {
       (sum, product) => {
         const productPriceWithDiscount = this.pricer.getProductDiscount(product);
 
-        const productPrice = productPriceWithDiscount ? productPriceWithDiscount.price : product.price;
+        const productPrice = productPriceWithDiscount.price || product.price;
         return sum + productPrice * product.quantity;
       }, 0);
   }

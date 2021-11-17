@@ -1,4 +1,4 @@
-<div class="cart-item">
+<div class="cart-item" data-test-product={{this.product.name}}>
     <img class="cart-item__image" src={{this.product.image}} alt="">
     <div class="cart-item__info">
         <div class="cart-item__name-block">
@@ -6,7 +6,9 @@
                 {{this.product.name}}
             </div>
             <button 
-                class="cart-item__remove-button" type="button" {{on "click" (fn this.removeFromCart this.product.id)}}
+                class="cart-item__remove-button" 
+                type="button" {{on "click" (fn this.removeFromCart this.product.id)}}
+                data-test-cart_remove_button
             >
                 x
             </button>
@@ -18,7 +20,7 @@
                         £{{this.productWithDiscount.price}}
                     </div>
                 {{/if}}
-                <div class="price-origin">
+                <div class="price-origin" data-test-product_price={{this.product.name}}>
                     £{{this.product.price}}
                 </div>
             </div>
@@ -26,7 +28,9 @@
                 {{#if productWithDiscount}}
                     {{this.productWithDiscount.quantity}}
                 {{/if}}
-                quantity: {{this.product.quantity}}
+                <div data-test-product_quantity={{this.product.name}}>
+                    quantity: {{this.product.quantity}}
+                </div>
             </div>
         </div>
     </div>

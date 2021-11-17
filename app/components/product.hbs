@@ -1,4 +1,4 @@
-<div class="product">
+<div class="product" data-test-product={{this.product.name}}>
     <div class="product__image-block">
         <img src={{this.product.image}} alt="product image" class="product__image">
     </div>
@@ -9,14 +9,14 @@
         <div class="product__bottom-section">
             <div class="product__price {{if this.productWithDiscount.price 'price--with-discount'}}">
                 {{#if this.productWithDiscount.price}}
-                    <div class="price-discount">£{{this.productWithDiscount.price}}</div>
+                    <div class="price-discount" data-test-price_discount>£{{this.productWithDiscount.price}}</div>
                 {{/if}}
                 <div class="price-origin">
                     £{{this.product.price}}
                 </div>
             </div>
             <QuantityCounter @quantity={{this.quantity}} @changeQuantity={{this.changeQuantity}} />
-            <Button {{on "click" this.addToCart}}>Buy</Button>
+            <Button {{on "click" this.addToCart}} data-test-buy_button>Buy</Button>
         </div>
     </div>
 </div>

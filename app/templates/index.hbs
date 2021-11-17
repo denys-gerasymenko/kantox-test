@@ -1,7 +1,7 @@
 <h1 class="page__title">All Products</h1>
 <ul class="product-list">
     {{#each @model as |product|}}
-       <li class="product-list__item">
+       <li class="product-list__item" data-test-product_list>
            <Product @product={{product}} />
        </li> 
     {{/each}}

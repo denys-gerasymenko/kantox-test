@@ -30,7 +30,7 @@ export default class CartItemComponent extends Component {
           this.shoppingCart.remove(productFromCart);
 
           const productPriceWithDiscount = this.pricer.getProductDiscount(productFromCart);
-          const productPrice = productPriceWithDiscount ? productPriceWithDiscount.price : productFromCart.price;
+          const productPrice = productPriceWithDiscount.price || productFromCart.price;
 
           this.args.changeTotalPrice(-productPrice * productFromCart.quantity);
           this.pricer.setDiscount(productFromCart, false);
