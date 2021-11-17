@@ -1,0 +1,26 @@
+<div class="cart-item">
+    <img class="cart-item__image" src={{this.product.image}} alt="">
+    <div class="cart-item__info">
+        <div class="cart-item__name-block">
+            <div>
+                {{this.product.name}}
+            </div>
+            <button 
+                class="cart-item__remove-button" type="button" {{on "click" (fn this.removeFromCart this.product.id)}}
+            >
+                x
+            </button>
+        </div>
+        <div class="cart-item__price-block">
+            <div class="cart-item__price">
+                {{#if productWithDiscount}}
+                    {{this.productWithDiscount.price}}
+                {{/if}}
+                £{{this.product.price}}
+            </div>
+            <div class="cart-item__quantity-price">
+                quantity: {{this.product.quantity}}
+            </div>
+        </div>
+    </div>
+</div>

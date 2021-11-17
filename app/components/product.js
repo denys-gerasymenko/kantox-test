@@ -9,20 +9,39 @@ export default class ProductComponent extends Component {
   @service('pricer') pricerService;
   @tracked product = this.args.product;
   @tracked quantity = MINIMUM_QUANTITY;
+  @tracked hasDiscount = false;
+  @tracked discountPrice = 0;
+  @tracked productWithDiscount = null;
+
+  constructor(...args) {
+    super(...args);
+    this.setProduct();
+  }
+
+  setProduct() {
+    const productFromCart = this.productFromCart;
+
+    if (productFromCart) {
+      const quantity = productFromCart.quantity;
+      this.productWithDiscount = this.pricerService.setProductWithDiscount(this.product, quantity);
+    }
+  }
 
   addToCart = () => {
-    const { product } = this.args;
-    const productInShoppingCart = this.shoppingCart.items.find((p) => {
-      return p.id === product.id;
-    });
+    const productFromCart = this.productFromCart;
 
-    if (productInShoppingCart) {
-      productInShoppingCart.quantity += this.quantity;
+    if (productFromCart) {
+      productFromCart.quantity += this.quantity;
+      this.productWithDiscount = this.pricerService.setProductWithDiscount(this.product, productFromCart.quantity);
     } else {
-      product.quantity = this.quantity;
-      this.shoppingCart.add(product);
+      this.product.quantity += this.quantity;
+      this.shoppingCart.add(this.product);
     }
   };
+
+  get productFromCart() {
+    return this.shoppingCart.getProductById(this.product.id) || null;
+  }
 
   changeQuantity = (quantity) => {
     const newQuantity = this.quantity + quantity;
@@ -33,7 +52,6 @@ export default class ProductComponent extends Component {
       this.quantity = newQuantity;
     }
 
-    this.pricerService.changeBuyingCounter(this.product, this.quantity);
-    this.product = this.pricerService.getProductWithDiscount(this.product);
-  }
+    this.productWithDiscount = this.pricerService.setProductWithDiscount(this.product, this.quantity + this.productFromCart.quantity);
+  };
 }

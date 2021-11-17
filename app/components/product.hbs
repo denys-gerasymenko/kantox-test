@@ -7,6 +7,9 @@
             {{this.product.name}}
         </div>
         <div class="product__price">
+            {{#if this.productWithDiscount}}
+                {{this.productWithDiscount.price}}
+            {{/if}}
             £{{this.product.price}}
             <QuantityCounter @quantity={{this.quantity}} @changeQuantity={{this.changeQuantity}} />
             <Button {{on "click" this.addToCart}}>Buy</Button>

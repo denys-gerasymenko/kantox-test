@@ -1,30 +1,18 @@
 import Component from '@glimmer/component';
 import { inject as service } from '@ember/service';
-import { tracked } from '@glimmer/tracking';
 
 export default class CartComponent extends Component {
   @service shoppingCart;
-  @service pricer;
-  @tracked products = this.args.products;
 
-  removeFromCart = (productId) => {
-    if (!productId) {
-      return;
-    }
-
-    const productFromCart = this.shoppingCart.items.find(
-      (p) => p.id === productId
-    );
-
-    if (productFromCart) {
-      this.shoppingCart.remove(productFromCart);
-      this.products = this.shoppingCart.items;
-      this.pricer.removeDiscount(productFromCart);
-    }
-  };
+  constructor(...args) {
+    super(...args);
+  }
 
   get totalPrice() {
-    return this.products.reduce((sum, product) => sum + product.price * product.quantity, 0);
+    return this.shoppingCart.items.reduce(
+      (sum, product) => sum + product.price * product.quantity,
+      0
+    );
   }
 
   get shoppingCartMock() {

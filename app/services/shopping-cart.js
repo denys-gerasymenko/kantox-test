@@ -8,6 +8,12 @@ export default class ShoppingCartService extends Service {
     this.items.pushObject(item);
   }
 
+  getProductById(id) {
+    return this.items.find((product) => {
+      return product.id === id;
+    });
+  }
+
   remove(item) {
     this.items.removeObject(item);
   }

@@ -4,63 +4,54 @@ export default class PricerService extends Service {
   productDiscounts = {
     GR1: {
       quantityForDiscount: 1,
-      discountFunction: this.getTeaDiscount,
-      counter: 0,
-      discount: null,
+      discount: this.getTeaDiscount,
+      hasDiscount: false,
     },
     SR1: {
       quantityForDiscount: 3,
-      discountFunction: this.getStrawberryDiscount,
-      counter: 0,
-      discount: null,
+      discount: this.getStrawberryDiscount,
+      hasDiscount: false,
     },
     CF1: {
       quantityForDiscount: 3,
-      discountFunction: this.getCoffeeDiscount,
-      counter: 0,
-      discount: null,
+      discount: this.getCoffeeDiscount,
+      hasDiscount: false,
     },
   };
 
-  useDiscount(productSettings, product) {
-    let discount;
-    if (typeof productSettings.discount === 'function') {
-      discount = productSettings.discount(product);
-    } else {
-      discount = productSettings.discount;
-    }
-
-    if (!product.originalPrice) {
-      product.originalPrice = product.price;
-    }
-
-    return {
-      ...product,
-      ...discount,
-    };
-  }
-
-  getProductWithDiscount(product) {
+  setProductWithDiscount(product, quantity) {
     const productSettings = this.productDiscounts[product.id];
-    
-    if (productSettings.discount) {
-      return this.useDiscount(productSettings, product);
-    }
 
-    if (productSettings.counter === productSettings.quantityForDiscount) {
-      productSettings.discount = productSettings.discountFunction(product);
-      return this.useDiscount(productSettings, product);
-    } else if (product.originalPrice && productSettings.counter < productSettings.quantityForDiscount) {
-      product.price = product.originalPrice;
+    if (quantity >= productSettings.quantityForDiscount) {
+      return this.getDiscount(product, true);
+    } else {
+      return null;
     }
-
-    return product;
   }
 
-  getTeaDiscount() {
-    return ({ quantity }) => {
-      return { quantity: quantity * 2 };
-    };
+  getDiscount(product, hasDiscount = false) {
+    this.productDiscounts[product.id].hasDiscount = hasDiscount;
+
+    if (hasDiscount) {
+      const discount = this.productDiscounts[product.id].discount(product);
+      return {
+        ...product,
+        ...discount,
+      };
+    } else {
+      return product;
+    }
+  }
+
+  getProductDiscount(product) {
+    const productSettings = this.productDiscounts[product.id];
+    return productSettings.hasDiscount && productSettings.discount(product);
+  }
+
+  
+
+  getTeaDiscount({ quantity }) {
+    return { quantity: quantity * 2 };
   }
 
   getStrawberryDiscount({ price }) {
@@ -68,27 +59,7 @@ export default class PricerService extends Service {
   }
 
   getCoffeeDiscount({ price }) {
-    return { price: price / 100 * 66 };
+    return { price: (price / 100) * 66 };
   }
 
-  changeBuyingCounter(product, count) {
-    const productSettings = this.productDiscounts[product.id];
-    if (productSettings.counter !== undefined) {
-      productSettings.counter = count;
-
-      if (productSettings.counter < productSettings.quantityForDiscount) {
-        this.removeDiscount(product);
-      }
-    }
-  }
-
-  setDiscounts(products) {
-    return products.map((p) => {
-      return this.getProductWithDiscount(p);
-    });
-  }
-
-  removeDiscount(product) {
-    this.productDiscounts[product.id].discount = null;
-  }
 }
