@@ -16,14 +16,14 @@ module('Unit | Service | pricer', function (hooks) {
       quantity: 0,
     };
 
-    service.changeBuyingCounter(product, 2);
-    let updatedProduct = service.getProductWithDiscount(product);
-    assert.equal(updatedProduct.price, product.price);
+    let productWithDiscount = service.setProductWithDiscount(product, 4);
 
-    service.changeBuyingCounter(product, 4);
-    updatedProduct = service.getProductWithDiscount(product);
-    console.log('service', service);
-    console.log('updatedProduct', updatedProduct);
-    assert.equal(updatedProduct.price, product.price);
+    assert.equal(productWithDiscount.price, 4.5);
+    assert.equal(service.productDiscounts[product.id].hasDiscount, true);
+
+    productWithDiscount = service.setProductWithDiscount(product, 2);
+
+    assert.equal(service.productDiscounts[product.id].hasDiscount, false);
+    assert.equal(productWithDiscount, null);
   });
 });

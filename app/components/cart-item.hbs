@@ -19,6 +19,9 @@
                 £{{this.product.price}}
             </div>
             <div class="cart-item__quantity-price">
+                {{#if productWithDiscount}}
+                    {{this.productWithDiscount.quantity}}
+                {{/if}}
                 quantity: {{this.product.quantity}}
             </div>
         </div>

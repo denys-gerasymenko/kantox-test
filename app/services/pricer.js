@@ -23,21 +23,19 @@ export default class PricerService extends Service {
     const productSettings = this.productDiscounts[product.id];
 
     if (quantity >= productSettings.quantityForDiscount) {
-      return this.getDiscount(product, true);
+      return this.setDiscount(product, true);
     } else {
+      productSettings.hasDiscount = false;
       return null;
     }
   }
 
-  getDiscount(product, hasDiscount = false) {
+  setDiscount(product, hasDiscount = false) {
     this.productDiscounts[product.id].hasDiscount = hasDiscount;
 
     if (hasDiscount) {
       const discount = this.productDiscounts[product.id].discount(product);
-      return {
-        ...product,
-        ...discount,
-      };
+      return discount;
     } else {
       return product;
     }
@@ -48,8 +46,6 @@ export default class PricerService extends Service {
     return productSettings.hasDiscount && productSettings.discount(product);
   }
 
-  
-
   getTeaDiscount({ quantity }) {
     return { quantity: quantity * 2 };
   }
@@ -59,7 +55,6 @@ export default class PricerService extends Service {
   }
 
   getCoffeeDiscount({ price }) {
-    return { price: (price / 100) * 66 };
+    return { price: ((price / 100) * 66 ).toFixed(2)};
   }
-
 }

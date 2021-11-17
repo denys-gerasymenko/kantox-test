@@ -52,6 +52,12 @@ export default class ProductComponent extends Component {
       this.quantity = newQuantity;
     }
 
-    this.productWithDiscount = this.pricerService.setProductWithDiscount(this.product, this.quantity + this.productFromCart.quantity);
+    let productQuantity = this.quantity;
+
+    if (this.productFromCart) {
+      productQuantity += this.productFromCart.quantity;
+    }
+
+    this.productWithDiscount = this.pricerService.setProductWithDiscount(this.product, productQuantity);
   };
 }

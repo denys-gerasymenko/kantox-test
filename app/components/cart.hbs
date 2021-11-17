@@ -3,7 +3,7 @@
     <ul>
         {{#each this.shoppingCart.items as |product|}}
             <li>
-                <CartItem @product={{product}} />
+                <CartItem @product={{product}} @changeTotalPrice={{this.changeTotalPrice}} />
             </li>
         {{/each}}
     </ul>
