@@ -3,22 +3,22 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
 
-module('Integration | Component | quantity-counter', function (hooks) {
+module('Integration | Component | cart-item', function (hooks) {
   setupRenderingTest(hooks);
 
   test('it renders', async function (assert) {
     // Set any properties with this.set('myProperty', 'value');
     // Handle any actions with this.set('myAction', function(val) { ... });
 
-    await render(hbs`<QuantityCounter />`);
+    await render(hbs`<CartItem />`);
 
     assert.dom(this.element).hasText('');
 
     // Template block usage:
     await render(hbs`
-      <QuantityCounter>
+      <CartItem>
         template block text
-      </QuantityCounter>
+      </CartItem>
     `);
 
     assert.dom(this.element).hasText('template block text');
